@@ -1,0 +1,138 @@
+:root {
+  --bg-color: #FAFAF8;
+  --text-primary: #1A1A1A;
+  --accent-green: #2D5F3E;
+  --accent-muted: #8FAD98;
+  --border-color: #E2E2D8;
+  --card-bg: #FFFFFF;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 2rem 4rem;
+  line-height: 1.5;
+}
+
+.editorial-header {
+  border-bottom: 2px solid var(--text-primary);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.publication-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-green);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  margin: 0.25rem 0;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #555;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.hash-badge {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.hash-label {
+  display: block;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: #777;
+}
+
+.hash-badge code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-green);
+}
+
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-left: 3px solid var(--accent-green);
+}
+
+.card-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.card-value {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.chart-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-header h2 {
+  font-family: var(--font-serif);
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.chart-header p {
+  margin: 0.25rem 0 1rem 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.chart-container {
+  height: 350px;
+  position: relative;
+}
+
+.chart-container-sm {
+  height: 220px;
+  position: relative;
+}
+
+.editorial-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #777;
+}
