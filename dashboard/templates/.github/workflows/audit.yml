@@ -1,0 +1,31 @@
+name: FinBuzz Data Audit Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 5' # Automated weekly audit on Fridays
+
+jobs:
+  audit-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Pipeline & Generate Data Hashes
+        run: python src/pipeline.py
+
+      - name: Verify Processed File Output
+        run: |
+          test -f data/processed/finbuzz_analyzed.csv
