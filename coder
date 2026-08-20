@@ -1,0 +1,59 @@
+import hashlib
+import os
+import pandas as pd
+import yfinance as yf
+
+
+def compute_sha256(file_path: str) -> str:
+  """Generates a cryptographic SHA-256 hash for dataset auditability."""
+  sha256_hash = hashlib.sha256()
+  with open(file_path, "rb") as f:
+    for byte_block in iter(lambda: f.read(4096), b""):
+      sha256_hash.update(byte_block)
+  return sha256_hash.hexdigest()
+
+
+def run_finbuzz_pipeline(
+    ticker: str = "NVDA", trends_path: str = "data/raw/google_trends.csv"
+):
+  # 1. Fetch market data
+  stock = yf.Ticker(ticker)
+  df_price = stock.history(period="1y")[["Close"]].rename(
+      columns={"Close": "price"}
+  )
+  df_price.index = pd.to_datetime(df_price.index).tz_localize(None)
+
+  # 2. Load Google search trends
+  df_trends = pd.read_csv(trends_path, parse_dates=["date"], index_col="date")
+
+  # 3. Align datasets on shared trading dates
+  df = df_price.join(df_trends, how="inner").dropna()
+
+  # 4. Convert levels to percentage returns to eliminate non-stationary bias
+  df["stock_return"] = df["price"].pct_change()
+  df["search_change"] = df["search_volume"].pct_change()
+  df = df.dropna()
+
+  # 5. Calculate 14-day rolling Pearson correlation
+  df["rolling_corr_14d"] = df["stock_return"].rolling(14).corr(df["search_change"])
+
+  # 6. Run 1-to-5 day lag analysis
+  lag_results = {}
+  for lag in range(1, 6):
+    df[f"search_lag_{lag}"] = df["search_change"].shift(lag)
+    corr = df["stock_return"].corr(df[f"search_lag_{lag}"])
+    lag_results[f"Lag t-{lag}"] = round(corr, 4) if pd.notnull(corr) else 0.0
+
+  # 7. Export dataset and generate cryptographic hash
+  os.makedirs("data/processed", exist_ok=True)
+  output_path = "data/processed/finbuzz_analyzed.csv"
+  df.to_csv(output_path)
+
+  file_hash = compute_sha256(output_path)
+  return df, lag_results, file_hash
+
+
+if __name__ == "__main__":
+  data, lags, digest = run_finbuzz_pipeline()
+  print(f"[DATA INTEGRITY HASH]: {digest}")
+  print(f"[LAG CORRELATION RESULTS]: {lags}")
