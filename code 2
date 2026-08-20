@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinBuzz v2 — Editorial Research Engine</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="editorial-header">
+    <div class="header-content">
+      <span class="publication-tag">FINANCIAL DATA PROVENANCE REGISTRY</span>
+      <h1>FinBuzz v2: Retail Sentiment vs. NVDA</h1>
+      <p class="subtitle">A self-auditing pipeline cross-referencing Google Search volume against asset returns.</p>
+    </div>
+    <div class="hash-badge">
+      <span class="hash-label">SHA-256 PROVENANCE HASH</span>
+      <code id="hash-value">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code>
+    </div>
+  </header>
+
+  <main class="dashboard-grid">
+    <section class="metrics-strip">
+      <div class="metric-card">
+        <span class="card-label">Asset Analyzed</span>
+        <span class="card-value">NVDA</span>
+      </div>
+      <div class="metric-card">
+        <span class="card-label">Primary Keyword</span>
+        <span class="card-value">"NVDA Stock"</span>
+      </div>
+      <div class="metric-card">
+        <span class="card-label">14D Rolling Corr</span>
+        <span class="card-value" id="metric-corr">+0.32</span>
+      </div>
+      <div class="metric-card">
+        <span class="card-label">Peak Predictive Lag</span>
+        <span class="card-value" id="metric-lag">t-1 Day</span>
+      </div>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-header">
+        <h2>Daily Return % vs. Search Volume Change %</h2>
+        <p>Percentage returns eliminate non-stationary drift bias found in raw price-level comparisons.</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="timeSeriesChart"></canvas>
+      </div>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-header">
+        <h2>Predictive Power: Lag Correlation Analysis (t-1 to t-5)</h2>
+        <p>Measures whether search volume spikes precede price shifts by 1 to 5 trading days.</p>
+      </div>
+      <div class="chart-container-sm">
+        <canvas id="lagChart"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <footer class="editorial-footer">
+    <p>FinBuzz v2 • Built for Statistical Honesty & Transparent Research Methodology</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
