@@ -1,0 +1,17 @@
+finbuzz-v2/
+├── .github/
+│   └── workflows/
+│       └── audit.yml            # CI pipeline for data hash verification
+├── data/
+│   ├── raw/
+│   │   └── google_trends.csv    # Raw Google search volume data
+│   └── processed/
+│       └── finbuzz_analyzed.csv # Processed dataset with SHA-256 hash
+├── src/
+│   └── pipeline.py              # Core statistical engine & processing logic
+├── dashboard/
+│   ├── index.html               # Ink & Paper dashboard interface
+│   ├── style.css                # Custom editorial styling
+│   └── app.js                   # Chart rendering logic
+├── requirements.txt             # Dependency locking file
+└── README.md                    # Methodology and data provenance registry
