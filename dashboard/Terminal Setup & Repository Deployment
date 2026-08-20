@@ -1,0 +1,14 @@
+# 1. Initialize local repository structure
+git init
+mkdir -p .github/workflows data/raw data/processed src dashboard templates
+
+# 2. Install Python packages and execute pipeline
+pip install -r requirements.txt
+python src/pipeline.py
+
+# 3. Commit files and push to remote repository
+git add .
+git commit -m "feat: complete FinBuzz v2 automated pipeline & editorial dashboard"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/finbuzz-v2.git
+git push -u origin main
